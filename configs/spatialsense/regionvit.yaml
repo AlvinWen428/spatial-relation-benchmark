@@ -1,0 +1,31 @@
+EXP:
+  MODEL_NAME: "regionvit"
+  EXP_ID: "spatialsense_ibot_base_regionvit"
+
+DATALOADER:
+  dataset_name: "spatialsense"
+  datapath: "./data/spatial_sense/annots_spatialsenseplus.json"
+  load_img: True
+  crop: False
+  norm_data: True
+  data_aug_shift: True
+  data_aug_color: True
+  predicate_dim: 9
+  object_dim: 3679
+  batch_size: 64
+
+TRAIN:
+  num_epochs: 100
+  learning_rate: 1e-4
+  l2: 1e-4
+  optimizer: adamw
+  layer_decay: 0.75
+  scheduler: cosine
+  warmup: 5
+
+MODEL:
+  REGIONVIT:
+    backbone: "vit_base"
+    pretrain_ckp: "./data/pretrained_checkpoints/ibot_vit_base_patch16.pth"
+    hidden_dim: 512
+    box_feature_size: 128

@@ -1,0 +1,32 @@
+EXP:
+  MODEL_NAME: "relativit"
+  EXP_ID: "spatialsenseplus_relativit"
+
+DATALOADER:
+  dataset_name: "spatialsense"
+  datapath: "./data/spatial_sense/annots_spatialsenseplus.json"
+  batch_size: 64
+  load_img: True
+  crop: False
+  norm_data: True
+  data_aug_shift: True
+  data_aug_color: True
+  predicate_dim: 9
+  object_dim: 3679
+
+TRAIN:
+  num_epochs: 100
+  learning_rate: 1e-5
+  l2: 1e-3
+  layer_decay: 0.75
+  optimizer: adamw
+  scheduler: cosine
+  warmup: 5
+
+MODEL:
+  VISION_TRANSFORMER:
+    pretrained: "./data/pretrained_checkpoints/ibot_vit_base_patch16.pth"
+    readnet_d_hidden: 512
+  RELATIVIT:
+    prompt_emb_pool: "max-in-roi"
+    use_attn_mask: True

@@ -1,0 +1,32 @@
+EXP:
+  MODEL_NAME: "cnn-transformer"
+  EXP_ID: "rel3d_CNNTransformer"
+
+DATALOADER:
+  datapath: "./data/rel3d/c_0.9_c_0.1.json"
+  batch_size: 64
+  load_img: True
+  crop: False
+  norm_data: True
+  data_aug_shift: True
+  data_aug_color: True
+
+TRAIN:
+  num_epochs: 200
+  learning_rate: 1e-4
+  l2: 1e-4
+  layer_decay: 1.0
+  optimizer: adamw
+  scheduler: cosine
+  warmup: 5
+
+MODEL:
+  VISION_TRANSFORMER:
+    pretrained: "./data/pretrained_checkpoints/ibot_vit_base_patch16.pth"
+    readnet_d_hidden: 512
+    depth: 1
+  CNNTRANSFORMER:
+    backbone: "resnet101"
+    pretrained_resnet: "supervised"
+    prompt_emb_pool: "max"
+    use_attn_mask: True

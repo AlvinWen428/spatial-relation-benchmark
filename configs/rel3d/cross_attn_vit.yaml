@@ -1,0 +1,28 @@
+EXP:
+  MODEL_NAME: "cross-attn-vit"
+  EXP_ID: "rel3d_CrossAttnViT"
+
+DATALOADER:
+  datapath: "./data/rel3d/c_0.9_c_0.1.json"
+  load_img: True
+  crop: False
+  norm_data: True
+  data_aug_shift: True
+  data_aug_color: True
+  batch_size: 64
+
+TRAIN:
+  num_epochs: 200
+  learning_rate: 1e-5
+  l2: 1e-4
+  optimizer: adamw
+  layer_decay: 1.0
+  scheduler: cosine
+  warmup: 5
+
+MODEL:
+  VISION_TRANSFORMER:
+    pretrained: "./data/pretrained_checkpoints/ibot_vit_base_patch16.pth"
+  CROSSATTNVIT:
+    decoder_depth: 1
+    emb_pool: "max-in-roi"
